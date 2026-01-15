@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>شهادة تقدير - م. إيمان محمد</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* شاشة الصندوق */
+        #gift-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+        }
+
+        .gift-box-3d {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateBox 10s linear infinite;
+        }
+
+        @keyframes rotateBox {
+            from { transform: rotateX(0) rotateY(0); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            border: 2px solid gold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+        }
+
+        .f-front  { transform: translateZ(75px); }
+        .f-back   { transform: rotateY(180deg) translateZ(75px); }
+        .f-right  { transform: rotateY(90deg) translateZ(75px); }
+        .f-left   { transform: rotateY(-90deg) translateZ(75px); }
+        .f-top    { transform: rotateX(90deg) translateZ(75px); }
+        .f-bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+        .instruction-text {
+            color: gold;
+            margin-top: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* حاوية الشهادة */
+        #main-container {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .certificate-card {
+            width: 1000px;
+            height: 700px;
+            background: #fff;
+            border: 20px solid #1a2a6c;
+            position: relative;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            color: #1a2a6c;
+            transform-origin: top center;
+        }
+
+        .inner-border {
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 3px solid #fdbb2d;
+            pointer-events: none;
+        }
+
+        .math-symbol {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.1;
+            color: #1a2a6c;
+            animation: float 8s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-50px) rotate(360deg); }
+        }
+
+        .header-title {
+            font-family: 'Amiri', serif;
+            font-size: 80px;
+            border-bottom: 5px double #fdbb2d;
+            margin-bottom: 20px;
+            width: 80%;
+        }
+
+        .to-text { font-size: 24px; margin: 10px 0; color: #555; }
+        .doctor-name { font-size: 60px; font-weight: 800; color: #b21f1f; margin-bottom: 20px; }
+        .subject-badge { font-size: 22px; background: #1a2a6c; color: #fff; padding: 10px 40px; border-radius: 50px; margin-bottom: 30px; }
+        .message-body { font-size: 24px; line-height: 1.8; max-width: 850px; color: #333; margin-bottom: 40px; }
+
+        /* تذييل الشهادة - تم رفعه للأعلى قليلاً */
+        .footer-section {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding: 0 50px 60px 50px; /* زيادة الحشو السفلي لرفع العناصر للأعلى */
+        }
+
+        .sig-item { display: flex; flex-direction: column; align-items: center; }
+        .line { width: 200px; height: 2px; background: #1a2a6c; margin-bottom: 10px; }
+        .sig-label { font-size: 18px; font-weight: bold;  }
+
+        /* الأزرار */
+        .action-buttons {
+            
+            display: flex;
+            gap: 20px;
+        }
+
+        .save-button {
+            padding: 15px 40px;
+            background: #fdbb2d;
+            color: #1a2a6c;
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* خلفية رياضية */
+        .math-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a2a6c, #000);
+            z-index: -1;
+        }
+
+        /* استجابة الجوال */
+        @media (max-width: 1050px) {
+            .certificate-card { transform: scale(0.8); }
+        }
+        @media (max-width: 850px) {
+            .certificate-card { transform: scale(0.6); }
+        }
+        @media (max-width: 650px) {
+            .certificate-card { transform: scale(0.4); }
+        }
+        @media (max-width: 450px) {
+            .certificate-card { transform: scale(0.3); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="math-bg"></div>
+
+    <!-- شاشة الصندوق -->
+    <div id="gift-screen" onclick="revealCertificate()">
+        <div class="gift-box-3d">
+            <div class="face f-front">🎁</div>
+            <div class="face f-back">📐</div>
+            <div class="face f-right">🔢</div>
+            <div class="face f-left">✨</div>
+            <div class="face f-top">🎓</div>
+            <div class="face f-bottom">🌟</div>
+        </div>
+        <p class="instruction-text">انقر على الصندوق لفتح الهدية</p>
+    </div>
+
+    <!-- الشهادة -->
+    <div id="main-container">
+        <div class="certificate-card" id="cert-to-save">
+            <div class="inner-border"></div>
+            
+            <!-- رموز رياضية -->
+            <div class="math-symbol" style="top:10%; left:10%;">∫</div>
+            <div class="math-symbol" style="top:20%; right:15%;">∑</div>
+            <div class="math-symbol" style="bottom:15%; left:20%;">π</div>
+            <div class="math-symbol" style="bottom:25%; right:10%;">√</div>
+            <div class="math-symbol" style="top:50%; left:5%;">∞</div>
+
+            <h1 class="header-title">شهادة شكر وتقدير</h1>
+            
+            <p class="to-text">تتقدم هذه الشهادة بكل فخر واعتزاز إلى</p>
+            
+            <h2 class="doctor-name">م. إيمان محمد</h2>
+            
+            <div class="subject-badge">مقدمة في الذكاء الاصطناعي</div>
+            
+            <p class="message-body">
+                تقديراً لجهودكِ الاستثنائية وتضحياتكِ الجادة في سبيل تعليمنا وتطوير مهاراتنا خلال الفصل الدراسي المنصرم. لقد كنتِ لنا خير معلمة وملهمة في تعريفنا على تخصصنا، فشكراً لكِ من القلب على كل ما قدمتِ.
+            </p>
+
+            <div class="footer-section">
+                <div class="sig-item">
+                    <div class="line"></div>
+                    <p style="" class="sig-label">الطالب: حامد العريقي</p>
+                </div>
+                <div class="sig-item">
+                    <div class="line"></div>
+                    <p class="sig-label">التاريخ: يناير 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="save-button" onclick="downloadCert()">حفظ الشهادة كصورة</button>
+        </div>
+    </div>
+
+    <script>
+        function revealCertificate() {
+            document.getElementById('gift-screen').style.display = 'none';
+            document.getElementById('main-container').style.display = 'flex';
+            createConfetti();
+        }
+
+        function downloadCert() {
+            const element = document.getElementById('cert-to-save');
+            const btn = document.querySelector('.save-button');
+            btn.innerText = 'جاري الحفظ...';
+
+            html2canvas(element, {
+                scale: 3,
+                useCORS: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'شهادة_تقدير_د_إيمان.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                btn.innerText = 'حفظ الشهادة كصورة';
+            });
+        }
+
+        function createConfetti() {
+            for(let i=0; i<50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = ['#fdbb2d', '#1a2a6c', '#b21f1f', '#fff'][Math.floor(Math.random()*4)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.zIndex = '1000';
+                confetti.style.borderRadius = '50%';
+                document.body.appendChild(confetti);
+
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0)', opacity: 1 },
+                    { transform: `translateY(100vh) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                });
+
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+    </script>
+</body>
+</html>
